@@ -1,0 +1,351 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+.spacedate-modal {
+  display: none !important;
+  background: #fff !important;
+  padding: 10px !important;
+  border-radius: 12px !important;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: auto; /* Allow modal to size based on content */
+  max-width: 90vw; /* Prevent overflow on small screens */
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15) !important;
+  z-index: 991 !important;
+  font-family: "Inter", sans-serif !important;
+  overflow: visible !important;
+}
+
+.spacedate-modal::before {
+  content: "";
+  position: absolute;
+  top: -10px; /* Posiciona o triângulo acima do modal */
+  left: 50%;
+  transform: translateX(-50%); /* Centraliza o triângulo */
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent; /* Tamanho do triângulo */
+  border-right: 10px solid transparent; /* Tamanho do triângulo */
+  border-bottom: 10px solid #fff; /* Cor do triângulo (deve combinar com o fundo do modal) */
+}
+
+.spacedate-modal.active {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+.spacedate-wrapper {
+  display: flex !important;
+  gap: 2rem !important;
+}
+
+.spacedate-section {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.spacedate-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 8px !important;
+  padding-left: 1rem;
+}
+
+.spacedate-header h3 {
+  color: #212121;
+  margin: 0;
+  font-size: 1.1rem;
+  font-family: "inter";
+  font-weight: 600;
+}
+
+.spacedate-presets {
+  display: flex !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+
+.spacedate-preset-btn {
+  padding: 6px 12px !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  color: black;
+  cursor: pointer !important;
+  font-size: 12px !important;
+  transition: all 0.2s !important;
+}
+
+.spacedate-preset-btn:hover {
+  background: #f5f5f5 !important;
+  border-color: #d0d0d0 !important;
+}
+
+.spacedate-calendar {
+  display: grid !important;
+  position: relative !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+  gap: 8px !important;
+  margin-top: 7px !important;
+  border: 1px solid #d8d7d7;
+  border-radius: 0.8rem;
+  padding: 0.2rem;
+}
+
+.spacedate-calendar-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 8px !important;
+  font-weight: 500 !important;
+  color: black;
+  grid-column: span 7 !important;
+  text-align: center !important;
+}
+
+.spacedate-calendar-header span {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.spacedate-nav-btn {
+  padding: 8px !important;
+  border: none !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+  font-size: 2rem;
+  color: #666 !important;
+}
+
+.spacedate-nav-btn:hover {
+  background: #f5f5f5 !important;
+  color: #333 !important;
+}
+
+.spacedate-day {
+  padding: 8px !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  color: #666;
+  transition: all 0.2s !important;
+}
+
+.spacedate-day:not(.disabled):hover {
+  background: #f0f7ff !important;
+}
+
+.spacedate-day.weekday {
+  font-weight: 500 !important;
+  color: #252525 !important;
+  cursor: default !important;
+}
+
+.spacedate-day.selected {
+  background: #0066ff !important;
+  color: white !important;
+}
+
+.spacedate-day.in-range {
+  background: #e6f0ff !important;
+  color: #0066ff !important;
+}
+
+.spacedate-day.in-range.selected {
+  background: #0066ff !important;
+  color: white !important;
+}
+
+.spacedate-day.disabled {
+  color: #ccc !important;
+  cursor: not-allowed !important;
+}
+
+.spacedate-input {
+  width: fit-content !important;
+  text-align: center !important;
+  padding: 10px !important;
+  border: 1px solid #ddd !important;
+  color: black;
+  border-radius: 6px !important;
+  font-size: 11px !important;
+  transition: border-color 0.2s !important;
+}
+
+.spacedate-input.invalid {
+  border-color: #ff6b6b !important;
+  color: #ff6b6b !important;
+}
+
+.spacedate-input:focus {
+  border-color: #0066ff !important;
+  outline: none !important;
+}
+
+.spacedate-footer {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  padding-top: 8px !important;
+}
+
+.spacedate-btn {
+  padding: 8px 16px !important;
+  border-radius: 6px !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-size: 12px !important;
+  transition: all 0.2s !important;
+}
+
+.spacedate-btn.cancel {
+  background: #f5f5f5 !important;
+  color: #666 !important;
+}
+
+.spacedate-btn.clear {
+  background: #e72323 !important;
+  color: #ffffff !important;
+}
+
+.spacedate-btn.apply {
+  background: #0066ff !important;
+  color: white !important;
+}
+
+.spacedate-btn:hover {
+  opacity: 0.9 !important;
+}
+
+.spacedate-overlay {
+  display: none !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 990 !important;
+}
+
+.spacedate-overlay.active {
+  display: block !important;
+}
+.spacedate-tooltip {
+  position: fixed !important;
+  background-color: #ff6b6b !important;
+  color: white !important;
+  padding: 6px 10px !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 0.3s ease, visibility 0.3s ease !important;
+  z-index: 1001 !important;
+  pointer-events: none !important;
+  white-space: nowrap !important;
+}
+
+.spacedate-tooltip.active {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.spacedate-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* Seta abaixo do tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ff6b6b transparent transparent transparent; /* Seta para baixo */
+}
+
+@media (max-width: 698px) {
+  .spacedate-modal {
+    max-width: 95vw !important; /* Aumenta um pouco a largura para telas pequenas */
+    padding: 8px !important; /* Reduz o padding */
+  }
+
+  .spacedate-wrapper {
+    flex-direction: column !important; /* Coloca as seções em coluna */
+    gap: 8px !important; /* Reduz o espaçamento entre as seções */
+  }
+
+  .spacedate-section {
+    width: 100% !important; /* Garante que as seções ocupem 100% da largura */
+  }
+
+  .spacedate-header {
+    flex-direction: column !important; /* Coloca o título e os presets em coluna */
+    align-items: center !important; /* Alinha à esquerda */
+    padding-left: 0 !important; /* Remove o padding lateral */
+  }
+
+  .spacedate-header h3 {
+    font-size: 1.2rem !important; /* Reduz o tamanho do título */
+    margin-bottom: 8px !important; /* Adiciona margem abaixo do título */
+  }
+
+  .spacedate-presets {
+    gap: 6px !important; /* Reduz o espaçamento entre os botões de preset */
+  }
+
+  .spacedate-preset-btn {
+    padding: 4px 8px !important; /* Reduz o padding dos botões */
+    font-size: 12px !important; /* Reduz o tamanho da fonte dos botões */
+  }
+
+  .spacedate-calendar {
+    gap: 4px !important; /* Reduz o espaçamento entre os dias */
+    margin-top: 8px !important; /* Reduz a margem superior */
+  }
+
+  .spacedate-calendar-header {
+    margin-bottom: 8px !important; /* Reduz a margem inferior */
+  }
+
+  .spacedate-calendar-header span {
+    font-size: 1.2rem !important; /* Reduz o tamanho da fonte do mês/ano */
+  }
+
+  .spacedate-nav-btn {
+    padding: 4px !important; /* Reduz o padding dos botões de navegação */
+    font-size: 1.5rem !important; /* Reduz o tamanho da fonte dos botões de navegação */
+  }
+
+  .spacedate-day {
+    padding: 6px !important; /* Reduz o padding dos dias */
+    font-size: 12px !important; /* Reduz o tamanho da fonte dos dias */
+  }
+
+  .spacedate-input {
+    padding: 8px !important; /* Reduz o padding dos inputs */
+    font-size: 12px !important; /* Reduz o tamanho da fonte dos inputs */
+  }
+
+  .spacedate-footer {
+    flex-direction: column !important; /* Coloca os botões em coluna */
+    gap: 8px !important; /* Reduz o espaçamento entre os botões */
+  }
+
+  .spacedate-btn {
+    padding: 6px 12px !important; /* Reduz o padding dos botões */
+    font-size: 12px !important; /* Reduz o tamanho da fonte dos botões */
+  }
+
+  .spacedate-tooltip {
+    font-size: 10px !important; /* Reduz o tamanho da fonte do tooltip */
+    padding: 4px 8px !important; /* Reduz o padding do tooltip */
+  }
+
+  .spacedate-tooltip::after {
+    border-width: 4px; /* Reduz o tamanho da seta do tooltip */
+  }
+}
