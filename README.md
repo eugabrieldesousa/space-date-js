@@ -1,109 +1,81 @@
-# SpaceDate - Período de Seleção de Datas
+# SpaceDate – Componente de seleção de intervalo de datas
 
-## Visão Geral
-SpaceDate é um componente customizável de seleção de datas que permite aos usuários escolher um intervalo de tempo (start e end date) com base em um formato intuitivo e responsivo. Ele oferece suporte multilíngue (é configurado automaticamente com base na URL) e inclui funcionalidades como presets de datas, validação de intervalo, e um design moderno.
+## 🧭 Visão Geral  
+SpaceDate é um componente de seleção de intervalo de datas (start → end), leve, responsivo e multilíngue. Foi **implementado e utilizado pela Duas Rodas** em seu site oficial, proporcionando experiência fluida em filtros e agendamentos.
 
-## Recursos Principais
-- **Suporte Multilíngue:** Idiomas disponíveis: Português (pt), Espanhol (es), e Inglês (en). O idioma é detectado automaticamente com base no caminho da URL.
-- **Validação de Intervalo:** Garante que a data final é maior que a data inicial.
-- **Presets de Datas:** Opções rápidas para selecionar 7, 30 ou 90 dias.
-- **Customização:** Várias opções podem ser ajustadas via parâmetros de inicialização.
-- **Responsividade:** Funciona bem em dispositivos móveis e desktop.
+## 🚀 Recursos Principais  
+- **Multilíngue automático** (pt, en, es), detectado pela URL  
+- **Validação inteligente:** garante que a data final seja posterior à inicial  
+- **Presets configuráveis:** seleção rápida (7, 30 ou 90 dias)  
+- **Alta customização:** formato, separador, `minDate`, `maxDate`, etc.  
+- **Design moderno e responsivo:** compatível com desktop e mobile  
 
-## Instalação
-1. Clone ou baixe o repositório do projeto.
-2. Inclua o arquivo JavaScript em sua aplicação:
-   ```html
-   <script src="path/to/spacedate.js"></script>
-   ```
-3. Certifique-se de incluir os estilos CSS para o componente:
-   ```html
-   <link rel="stylesheet" href="path/to/spacedate.css">
-   ```
+## ⚙️ Instalação & Uso  
 
-## Inicialização
-Você pode inicializar o componente SpaceDate chamando o construtor e passando o seletor do gatilho (trigger).
+### Instalação  
+```bash
+git clone https://github.com/seu-usuario/spacedate.git
+```
 
-### Exemplo Básico
+Inclua os arquivos na sua aplicação:
+```html
+<script src="path/to/spacedate.js"></script>
+<link rel="stylesheet" href="path/to/spacedate.css">
+```
+
+### Inicialização
 ```javascript
-const datePicker = new SpaceDate("#date-picker-trigger", {
-  format: "MM/DD/YYYY",
-  separator: " to ",
+const dp = new SpaceDate("#trigger", {
+  format: "DD/MM/YYYY",
+  separator: " até ",
+  presets: [7, 30, 90],
+  minDate: "2025-01-01",
+  maxDate: "2025-12-31",
 });
 ```
 
-### Opções de Configuração
-- **format**: Define o formato da data. (Padrão: "DD/MM/YYYY")
-- **separator**: Define o separador entre as datas inicial e final. (Padrão: " - ")
+## 🌍 Idiomas & Traduções  
+Detecta idioma pelo caminho da URL: `/pt/`, `/en/`, `/es/`  
+Inclui traduções para tooltips, placeholders, nomes de meses e dias da semana.
 
-## Traduções
-As traduções estão definidas para Português, Espanhol e Inglês. Elas incluem:
-- Tooltip para mensagens de erro.
-- Placeholders para os campos de data inicial e final.
-- Nomes dos meses e dias da semana.
+## 📂 Estrutura do Projeto  
+- `translations/` – arquivos de texto para cada idioma  
+- `SpaceDate.js` – lógica central (DOM, eventos, validações)  
+- `Modal/` – interface visual do calendário  
+- `Tooltip/` – mensagens de erro para seleção inválida  
+- `spacedate.css` – estilos responsivos padrões  
 
-### Configurações de Idioma
-O idioma é automaticamente detectado pela função `getLanguageFromPath`, que verifica o caminho da URL para determinar o idioma (exemplo: `/es/` para espanhol). Se nenhum idioma correspondente for encontrado, o padrão é Português.
+## 📌 Integração no site da Duas Rodas  
+Ao clicar em **Aplicar**, os parâmetros `since` e `until` são formatados e adicionados à URL, redirecionando o usuário para a versão filtrada:
 
-## Estrutura do Projeto
-- **translations**: Contém os textos traduzidos para cada idioma.
-- **SpaceDate Class**: Gera o modal, listeners de eventos e validações.
-- **Modal Dinâmico**: Cria elementos de interface DOM, incluindo calendários e headers.
-- **Tooltip**: Informa ao usuário quando a seleção de intervalo é inválida.
-
-## Estilo
-Certifique-se de aplicar estilos consistentes para o componente. O arquivo CSS pode ser personalizado de acordo com o design da sua aplicação.
-
-### Exemplo de CSS (Padrão)
-```css
-.spacedate-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-}
-.spacedate-modal {
-  position: absolute;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  z-index: 1000;
-}
-.spacedate-btn {
-  background: #007BFF;
-  color: #fff;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-```
-
-## Eventos
-### Evento de Aplicar
-Quando o usuário clica no botão **Aplicar**, o URL é atualizado com os parâmetros `since` e `until`, correspondendo ao intervalo selecionado:
 ```javascript
 const params = {
-  since: this.formatDateForUrl(this.startDate),
-  until: this.formatDateForUrl(this.endDate),
+  since: dp.formatForUrl(dp.startDate),
+  until: dp.formatForUrl(dp.endDate)
 };
 const url = new URL(window.location.href);
 url.searchParams.set("since", params.since);
 url.searchParams.set("until", params.until);
-window.location.href = url.href;
+window.location.href = url.toString();
 ```
 
-## Contribuições
-Fique à vontade para enviar sugestões, reportar problemas ou criar pull requests. Todas as contribuições são bem-vindas!
+## 💡 Porque este projeto agrega valor  
+✅ Aplicado em ambiente real de cliente: **Duas Rodas**  
+✅ Engloba UX, i18n, validação, SEO e performance  
+✅ Código modular e reutilizável, facilmente integrável em outros projetos  
 
-## Licença
-Este projeto está licenciado sob a licença MIT. Veja o arquivo LICENSE para mais informações.
+## 📥 Contribuições & Licença  
+Contribuições são bem-vindas!  
+Licenciado sob **MIT** – consulte o arquivo `LICENSE` para mais detalhes.
 
 ---
 
-Aproveite o SpaceDate para criar uma experiência incrível de seleção de datas em seus projetos!
+### ⚡ Destaques para Recrutadores  
+- Uso real em projeto corporativo  
+- Estrutura clara e profissional  
+- Demonstra domínio técnico em internationalization, UX, validação e integração via URL
 
+---
+
+Fique à vontade para abrir issues ou criar PRs.  
+Obrigado por conferir o **SpaceDate**! 😊
